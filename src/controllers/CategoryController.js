@@ -1,19 +1,23 @@
-const Category = require("../models/Category")
+const Category = require("../models/Category");
+const Utils = require("../utils/Utils");
 
 // Criar nova categoria
 const criarCategoria = async (req, res) => {
-  const { name, idUser } = req.body;
-  if (!name || !idUser) {
+  const { data } = req.body;
+  const encryptData = Utils.decryptData(data)
+  const decryptJSON = JSON.parse(encryptData)
+
+  if (!decryptJSON.name || !decryptJSON.idUser) {
     return res.status(400).json({ sucesso: false, mensagem: 'Nome da categoria é obrigatório' });
   }
 
   try {
-    const categoriaExistente = await Category.findOne({ where: { name } });
+    const categoriaExistente = await Category.findOne({ where: { name: decryptJSON.name } });
     if (categoriaExistente) {
       return res.status(409).json({ sucesso: false, mensagem: 'Categoria já existe' });
     }
 
-    const novaCategoria = await Category.create({ name: name, idUser: idUser });
+    const novaCategoria = await Category.create({ name: decryptJSON.name, idUser: decryptJSON.idUser });
     res.status(201).json({ sucesso: true, mensagem: 'Categoria criada com sucesso', dados: novaCategoria });
   } catch (error) {
     res.status(500).json({ sucesso: false, mensagem: 'Erro ao criar categoria', erro: error.message });
