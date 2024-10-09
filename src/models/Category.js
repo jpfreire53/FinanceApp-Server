@@ -30,4 +30,4 @@ const Category = sequelize.define(
 
 Category.belongsTo(User, { foreignKey: "idUser" })
 
-  module.exports = Category;
+module.exports = Category;

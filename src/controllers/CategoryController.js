@@ -43,7 +43,7 @@ const obterCategoriasPorIdUser = async (req, res) => {
   try {
     const categorias = await Category.findAll({ where: { idUser: idUser } });
     if (!categorias.length) {
-      return res.status(404).json({ sucesso: false, mensagem: 'Nenhum gasto encontrado para este usuário' });
+      return res.status(404).json({ sucesso: false, mensagem: 'Nenhuma categoria encontrada para este usuário' });
     }
     res.status(200).json({ sucesso: true, dados: categorias });
   } catch (error) {
