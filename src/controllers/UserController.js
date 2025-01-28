@@ -2,6 +2,7 @@ const User = require("../models/User")
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Utils = require("../utils/Utils");
 const SECRET_KEY = 'sua_chave_secreta_aqui';
 
 const SALT_ROUNDS = 10;
@@ -25,7 +26,10 @@ const validarLogin = (email, password) => {
 };
 
 const loginUsuario = async (req, res) => {
-  const { email, password } = req.body;
+  const { data } = req.body;
+  console.log(data)
+  const dataEncrypt = Utils.decryptData(data)
+  const { email, password } = JSON.parse(dataEncrypt)
   
   // Validação básica de entrada
   const erroValidacao = validarLogin(email, password);
