@@ -4,13 +4,15 @@ const User = require("../models/User");
 const Expenses = require("../models/Expenses");
 const Category = require("../models/Category");
 const Goals = require("../models/Goals");
-const createView = require("../models/Views/MonthlyExpenses")
+const Revenues = require("../models/Revenues");
+const createView = require("../models/Views/MonthlyExpenses");
 
 const syncTables = async () => {
     await User.sync();
     await Goals.sync();
     await Category.sync();
     await Expenses.sync();
+    await Revenues.sync();
     await createView();
     console.log("Sucesso ao sincronizar tabelas!");
 }

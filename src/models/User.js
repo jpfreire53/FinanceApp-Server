@@ -21,10 +21,6 @@ const User = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false
         },
-        salary: {
-            type: DataTypes.DECIMAL(10, 2),
-            allowNull: false
-        },
         createdAt: {
 			type: DataTypes.DATE,
 			allowNull: false,

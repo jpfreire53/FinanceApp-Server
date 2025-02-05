@@ -8,12 +8,9 @@ const SECRET_KEY = 'sua_chave_secreta_aqui';
 const SALT_ROUNDS = 10;
 
 // Função auxiliar para validações
-const validarUsuario = (name, email, password, salary) => {
+const validarUsuario = (name, email, password) => {
   if (!name || !email || !password) {
     return 'name, email e password são obrigatórios';
-  }
-  if (salary && isNaN(salary)) {
-    return 'Salário deve ser um número válido';
   }
   return null;
 };
@@ -27,7 +24,6 @@ const validarLogin = (email, password) => {
 
 const loginUsuario = async (req, res) => {
   const { data } = req.body;
-  console.log(data)
   const dataEncrypt = Utils.decryptData(data)
   const { email, password } = JSON.parse(dataEncrypt)
   
@@ -67,10 +63,10 @@ const loginUsuario = async (req, res) => {
 
 // Criar um novo usuário
 const criarUsuario = async (req, res) => {
-  const { name, email, password, salary } = req.body;
+  const { name, email, password } = req.body;
   
   // Validação básica de entrada
-  const erroValidacao = validarUsuario(name, email, password, salary);
+  const erroValidacao = validarUsuario(name, email, password);
   if (erroValidacao) {
     return res.status(400).json({ sucesso: false, mensagem: erroValidacao });
   }
@@ -89,8 +85,7 @@ const criarUsuario = async (req, res) => {
     const user = {
       name: name,
       email: email,
-      password: senhaHash,
-      salary: salary
+      password: senhaHash
     }
 
     const novoUsuario = await User.create(user);
@@ -136,7 +131,7 @@ const obterUsuarioPorId = async (req, res) => {
 
 // Editar usuário
 const editarUsuario = async (req, res) => {
-  const { name, email, salary } = req.body
+  const { name, email } = req.body
   const { id } = req.params;
   if (!id) {
     return res.status(400).json({ sucesso: false, mensagem: 'ID do usuário é obrigatório' });
@@ -150,8 +145,7 @@ const editarUsuario = async (req, res) => {
 
     usuario.update({
       name,
-      email,
-      salary
+      email
     });
 
     usuario.reload();
