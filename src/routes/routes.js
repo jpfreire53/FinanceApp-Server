@@ -6,7 +6,7 @@ const { criarCategoria, obterCategorias, obterCategoriasPorIdUser } = require('.
 const { adicionarGasto, obterGastosPorUsuario } = require('../controllers/ExpensesController');
 const { criarMeta, obterMetasPorUsuario } = require('../controllers/GoalsController');
 const { obterResumoGastosMensais } = require('../controllers/MonthlyExpensesController');
-const { criarReceita, obterReceitarMesAnoPorUsuario } = require("../controllers/RevenuesController");
+const { criarReceita, obterReceitarMesAnoPorUsuario, obterReceitarPaginadaPorUsuario } = require("../controllers/RevenuesController");
 
 
 router.post('/api/user/create', criarUsuario); // Rota para criar usuário
@@ -27,6 +27,7 @@ router.get('/api/goals/user/:idUser', obterMetasPorUsuario); // Rota para obter 
 
 router.post('/api/revenues/create', criarReceita); // Rota para criar receita
 router.get('/api/revenues/user/:idUser/:year/:month', obterReceitarMesAnoPorUsuario); // Rota para obter receitas por usuário
+router.get('/api/revenues/user/:idUser', obterReceitarPaginadaPorUsuario); // Rota para obter receitas por usuário
 
 router.get('/gastos/mensais/:usuarioId', obterResumoGastosMensais); // Rota para obter o resumo de gastos mensais de um usuário específico
 
