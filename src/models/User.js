@@ -21,6 +21,11 @@ const User = sequelize.define(
             type: DataTypes.STRING(255),
             allowNull: false
         },
+        firstTime: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
         createdAt: {
 			type: DataTypes.DATE,
 			allowNull: false,

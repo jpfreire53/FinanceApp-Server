@@ -54,7 +54,7 @@ const loginUsuario = async (req, res) => {
       sucesso: true,
       mensagem: 'Login realizado com sucesso',
       token: token,
-      user: { idUser: usuario.idUser, name: usuario.name, email: usuario.email }
+      user: { idUser: usuario.idUser, name: usuario.name, email: usuario.email, firstTime: usuario.firstTime }
     });
   } catch (error) {
     res.status(500).json({ sucesso: false, mensagem: 'Erro ao realizar login', erro: error.message });
